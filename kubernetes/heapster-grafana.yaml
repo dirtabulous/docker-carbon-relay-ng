@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: heapster-grafana
+  namespace: default
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: heapster-grafana
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        task: monitoring
+        output: grafana
+    spec:
+      serviceAccountName: heapster-grafana
+      containers:
+        - name: heapster-grafana
+          image: gcr.io/google_containers/heapster-amd64:v1.4.0
+          imagePullPolicy: IfNotPresent
+          command:
+            - /heapster
+            - --source=kubernetes:https://kubernetes.default
+            - --sink=graphite:tcp://graphite-proxy:2003?prefix=k8s.us-east1.default
