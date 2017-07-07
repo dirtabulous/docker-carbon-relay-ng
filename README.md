@@ -10,6 +10,10 @@ The docker container need to be setup using environment variables.
 * **GRAFANA_METRIC_URL** - URL to hosted Graphite/Grafana (ex. `https://XXXX.hosted-metrics.grafana.net/metrics`)
 * **GRAFANA_API_KEY** - API key for access to endpoint
 
+The container can be pulled by the following command.
+```sh
+$ docker pull quay.io/adfin/k8-carbon-replay-ng:latest
+```
 
 # Deploying to Kubernetes
 Carbon-Relay-NG in Kubernetes is setup using a [K8 Secret](https://kubernetes.io/docs/concepts/configuration/secret/). 
